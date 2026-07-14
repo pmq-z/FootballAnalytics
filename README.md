@@ -4,15 +4,19 @@ Agradezco a Diego de Luna (Coworker) por su opinión, observaciones y recomendac
 
 ## El veredicto
 
-**La predicción, antes del partido**
-<img width="1300" height="936" alt="Prediccion" src="https://github.com/user-attachments/assets/e16c6ced-8ebd-4670-944d-c208543e247d" />
+**La predicción, antes del partido:**
 
-**El resultado real, después del partido**
-<img width="676" height="492" alt="Resultado" src="https://github.com/user-attachments/assets/75a2e2b4-ce08-48ac-8567-a6b708a8758c" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e16c6ced-8ebd-4670-944d-c208543e247d" width="700">
+</p>
 
-Ganador correcto. Goles de España, clavados. Se le fue el gol de Francia — el modelo le concedía a Mbappé la probabilidad de anotador más alta del partido (47.9%) y el 0 del marcador dice que no cayó.
+**El resultado real, después del partido:**
 
-Un fallo de un gol en el visitante y un acierto pleno en ganador y marcador local. Para un árbol entrenado sobre clusters de estilo de juego, no está mal.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/75a2e2b4-ce08-48ac-8567-a6b708a8758c" width="700">
+</p>
+
+Ganador correcto. Goles de España (gracias al anulado) clavaditos. Se le fue el gol de Francia... el modelo le concedía a Mbappé la probabilidad de anotador más alta del partido (47.9%) y el 0 del marcador dice que no cayó.
 
 ## Arranque
 ```bash
