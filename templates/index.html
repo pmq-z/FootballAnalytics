@@ -1,0 +1,109 @@
+<!-- El apartado visual tomo severa inspiración en el juego "Marathon" creado por Bungie Studios, especifíficamente en la "corporación" NuCaloric -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PREDICTOR DE PARTIDOS // K-MEANS + ID3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="mark">01</div>
+  <div class="app-title">
+    <h1>PREDICTOR DE PARTIDOS</h1>
+    <p class="sub">MOTOR HIBRIDO — K-MEANS (PERFIL DE PARTIDO) + ID3 (VEREDICTO)</p>
+  </div>
+  <div class="stamp">FECHA DEL PARTIDO<br><b>{{ fecha }}</b></div>
+</header>
+
+<main class="grid">
+
+  <section class="block select-block">
+    <h2 class="block-title">01 // SELECCION DE EQUIPOS</h2>
+    <div class="matchup">
+      <label class="field">
+        <span>LOCAL</span>
+        <select id="local">
+          {% for t in roster %}<option value="{{ t }}" {% if t == 'ESPAÑA' %}selected{% endif %}>{{ t }}</option>{% endfor %}
+        </select>
+      </label>
+      <div class="vs">VS</div>
+      <label class="field">
+        <span>VISITANTE</span>
+        <select id="visita">
+          {% for t in roster %}<option value="{{ t }}" {% if t == 'FRANCIA' %}selected{% endif %}>{{ t }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="field narrow">
+        <span>CLUSTERS (K)</span>
+        <input id="k" type="number" min="2" max="6" value="4">
+      </label>
+    </div>
+    <button id="run" class="mega-btn">EJECUTAR PREDICCION</button>
+    <p id="status" class="status" role="status" aria-live="polite">EN ESPERA DE INSTRUCCIONES.</p>
+  </section>
+
+  <section class="block verdict-block is-hidden" id="verdict">
+    <h2 class="block-title inverse">02 // RESULTADO</h2>
+    <div class="verdict-grid">
+      <div class="verdict-cell">
+        <span class="label">GANADOR</span>
+        <strong id="v-winner">—</strong>
+      </div>
+      <div class="verdict-cell accent">
+        <span class="label">MARCADOR EXACTO</span>
+        <strong id="v-score">—</strong>
+      </div>
+      <div class="verdict-cell">
+        <span class="label">CONFIANZA ID3</span>
+        <strong id="v-conf">—</strong>
+      </div>
+    </div>
+    <div class="bars" id="v-probs"></div>
+    <div class="scorers">
+      <span class="label">ANOTADORES PROBABLES</span>
+      <ul id="v-scorers"></ul>
+    </div>
+    <div class="alt" id="v-alt"></div>
+  </section>
+
+  <section class="block analysis-block is-hidden" id="analysis">
+    <h2 class="block-title">03 // ANALISIS DEL MODELO</h2>
+    <div class="two-col">
+      <div class="pane">
+        <span class="label">CLUSTER K-MEANS ACTIVADO</span>
+        <div class="cluster-tag" id="a-cluster">—</div>
+        <table class="mini" id="a-centroids"></table>
+      </div>
+      <div class="pane">
+        <span class="label">RUTA DE DECISION ID3</span>
+        <ol class="path" id="a-path"></ol>
+        <pre class="rules" id="a-rules"></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="block data-block is-hidden" id="data">
+    <div class="data-head">
+      <h2 class="block-title">04 // DATASET</h2>
+      <button id="export" class="square-btn">EXPORTAR DATASET (.XLSX)</button>
+    </div>
+    <div class="table-wrap"><table class="data-table" id="d-table"></table></div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  <span>PIPELINE: STANDARDSCALER → KMEANS → FEATURE INJECTION → DECISIONTREE(ENTROPY)</span>
+  <span id="f-samples">MUESTRAS: —</span>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
